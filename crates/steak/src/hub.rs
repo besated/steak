@@ -29,25 +29,15 @@ pub enum ExecuteMsg {
     /// Implements the Cw20 receiver interface
     Receive(Cw20ReceiveMsg),
     /// Bond specified amount of Luna
-    Bond {
-        receiver: Option<String>,
-    },
+    Bond { receiver: Option<String> },
     /// Withdraw Luna that have finished unbonding in previous batches
-    WithdrawUnbonded {
-        receiver: Option<String>,
-    },
+    WithdrawUnbonded { receiver: Option<String> },
     /// Add a validator to the whitelist; callable by the owner
-    AddValidator {
-        validator: String,
-    },
+    AddValidator { validator: String },
     /// Remove a validator from the whitelist; callable by the owner
-    RemoveValidator {
-        validator: String,
-    },
+    RemoveValidator { validator: String },
     /// Transfer ownership to another account; will not take effect unless the new owner accepts
-    TransferOwnership {
-        new_owner: String,
-    },
+    TransferOwnership { new_owner: String },
     /// Accept an ownership transfer
     AcceptOwnership {},
     /// Claim staking rewards, swap all for Luna, and restake
@@ -67,9 +57,7 @@ pub enum ExecuteMsg {
 pub enum ReceiveMsg {
     /// Submit an unbonding request to the current unbonding queue; automatically invokes `unbond`
     /// if `epoch_time` has elapsed since when the last unbonding queue was executed.
-    QueueUnbond {
-        receiver: Option<String>,
-    },
+    QueueUnbond { receiver: Option<String> },
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -141,9 +129,9 @@ pub struct ConfigResponse {
 pub struct StateResponse {
     /// Total supply to the Steak token
     pub total_usteak: Uint128,
-    /// Total amount of uluna staked
-    pub total_uluna: Uint128,
-    /// The exchange rate between usteak and uluna, in terms of uluna per usteak
+    /// Total amount of usei staked
+    pub total_usei: Uint128,
+    /// The exchange rate between usteak and usei, in terms of usei per usteak
     pub exchange_rate: Decimal,
     /// Staking rewards currently held by the contract that are ready to be reinvested
     pub unlocked_coins: Vec<Coin>,
@@ -167,8 +155,8 @@ pub struct Batch {
     pub reconciled: bool,
     /// Total amount of shares remaining this batch. Each `usteak` burned = 1 share
     pub total_shares: Uint128,
-    /// Amount of `uluna` in this batch that have not been claimed
-    pub uluna_unclaimed: Uint128,
+    /// Amount of `usei` in this batch that have not been claimed
+    pub usei_unclaimed: Uint128,
     /// Estimated time when this batch will finish unbonding
     pub est_unbond_end_time: u64,
 }
